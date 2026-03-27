@@ -408,14 +408,14 @@
     <section id="waitlist" class="waitlist-section">
         <div class="container">
             <div class="waitlist-form">
-                <form id="waitlistForm">
+                <form id="waitlistForm" onsubmit="event.preventDefault(); return false;">
                     <div class="form-group">
-                        <input type="text" id="name" placeholder="Your name" required>
+                        <input type="text" id="name" placeholder="Your name" required autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" placeholder="Email address" required>
+                        <input type="email" id="email" placeholder="Email address" required autocomplete="email">
                     </div>
-                    <button type="submit" id="submitBtn">Join waitlist</button>
+                    <button type="button" id="submitBtn">Join waitlist</button>
                 </form>
                 <div id="formMessage" class="form-message"></div>
             </div>
@@ -509,13 +509,13 @@
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
                 <a href="privacy.html">Privacy</a>
-                <a href="mailto:hello@scrapesafe.app">Contact</a>
+                <a href="/cdn-cgi/l/email-protection#a3cbc6cfcfcce3d0c0d1c2d3c6d0c2c5c68dc2d3d3">Contact</a>
             </div>
             <p class="footer-copy">© 2024 ScrapeSafe. Made for the low life.</p>
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Configuration - Replace these with your actual credentials
         const SUPABASE_URL = 'https://qcdhkmucgxlhitrixddxt.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjZGhrbXVjZ3hsaHRpcnh4ZHh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTYzNTIsImV4cCI6MjA4OTY5MjM1Mn0.WK9ZauB5GPJQ4wiHRUK6C3qSe6-RXQAbwytT4E0_Zug';
@@ -535,7 +535,7 @@
             }, 5000);
         }
 
-        form.addEventListener('submit', async (e) => {
+        submitBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             
             const name = document.getElementById('name').value.trim();
@@ -572,7 +572,3 @@
                 }
 
                 // Success
-                showMessage('You\'re in! We\'ll be in touch when we launch.', 'success');
-                form.reset();
-
-            } catch (error) {
