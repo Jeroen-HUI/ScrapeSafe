@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrapeSafe — Navigate Low. Drive Smart.</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #e8e8e8;
+            background: #0a0a0a;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header-content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 500;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 15px;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 32px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            font-weight: 300;
+            color: #888;
+        }
+
+        .hero-subtitle {
+            font-size: 19px;
+            color: #a8a8a8;
+            max-width: 520px;
+            margin: 0 auto 48px;
+            line-height: 1.6;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta-item {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .hero-car {
+            max-width: 400px;
+            margin: 48px auto;
+        }
+
+        .car-illustration {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Waitlist Form */
+        .waitlist-section {
+            padding: 60px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .waitlist-form {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            color: #ffffff;
+            transition: all 0.2s;
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+            background: #ffffff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #e8e8e8;
+        }
+
+        button:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .form-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        /* Section Headers */
+        .section {
+            padding: 100px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .section h2 {
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .section h2 em {
+            font-style: italic;
+            font-weight: 300;
+            color: #666;
+        }
+
+        .section-intro {
+            font-size: 19px;
+            color: #a8a8a8;
+            margin-bottom: 60px;
+            max-width: 560px;
+            line-height: 1.6;
+        }
+
+        /* Features */
+        .feature-item {
+            margin-bottom: 64px;
+        }
+
+        .feature-number {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .feature-item h3 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .feature-item p {
+            color: #a8a8a8;
+            line-height: 1.7;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 32px 24px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .pricing-tier {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .pricing-amount {
+            margin-bottom: 24px;
+        }
+
+        .pricing-amount .price {
+            font-size: 48px;
+            font-weight: 300;
+            color: #ffffff;
+        }
+
+        .pricing-amount .period {
+            font-size: 15px;
+            color: #666;
+        }
+
+        .pricing-amount .tba {
+            font-size: 28px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            list-style: none;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            color: #888;
+            font-size: 15px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 32px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 16px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-copy {
+            color: #444;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero-subtitle {
+                font-size: 17px;
+            }
+
+            .section h2 {
+                font-size: 28px;
+            }
+
+            nav a {
+                margin-left: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">ScrapeSafe</a>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#waitlist">Join Waitlist</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">Now taking founding members</div>
+            <h1><em>Navigate low.</em> Drive smart. <em>Avoid scrapes.</em></h1>
+            <p class="hero-subtitle">The first navigation app built for slammed and stanced cars. Find routes that clear, avoid speed bumps you can't see coming, and connect with the community that gets it.</p>
+            
+            <div class="hero-car">
+                <img src="car-illustration.png" alt="Slammed 350Z" class="car-illustration">
+            </div>
+
+            <div class="hero-meta">
+                <span class="hero-meta-item">Community-powered</span>
+                <span class="hero-meta-item">iOS & Android</span>
+                <span class="hero-meta-item">Launching 2026</span>
+                <span class="hero-meta-item">Free to start</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="waitlist" class="waitlist-section">
+        <div class="container">
+            <div class="waitlist-form">
+                <form id="waitlistForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Email address" required>
+                    </div>
+                    <button type="submit" id="submitBtn">Join waitlist</button>
+                </form>
+                <div id="formMessage" class="form-message"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <div class="container">
+            <h2>Everything you need to <em>drive slammed.</em></h2>
+            <p class="section-intro">ScrapeSafe gives you the tools to navigate safely, contribute to the community, and connect with other people who daily their slammed builds.</p>
+
+            <div class="feature-item">
+                <div class="feature-number">01</div>
+                <h3>Smart Routing</h3>
+                <p>See obstacles on your route as you navigate. Free users can view all community-reported speed bumps, steep driveways, scrapy parking garage entrances, and problem areas. Pro members get automatic rerouting that steers you away from frame-scraping obstacles before you reach them. Routes adapt in real-time based on your car's ground clearance and live community data.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-number">02</div>
+                <h3>Clearance Scanner</h3>
+                <p>Point your camera at any slope, curb, or obstacle. Enter your car's ride height. ScrapeSafe calculates the angle and tells you if you'll make it. No more guessing. No more scraping. Just point and know. Available for Pro members.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-number">03</div>
+                <h3>Community Reports</h3>
+                <p>Every driver contributes. Spot a speed bump that'll scrape your splitter? Mark it. Find a safe route through a cambered road? Share it. Know which gas stations have steep entrance angles? Report them. The more people contribute, the better the data gets for everyone running low. You help the community. The community helps you.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-number">04</div>
+                <h3>Build Showcase</h3>
+                <p>Post photos of your slammed car. Share your wheel setup, offset specs, suspension mods, and how low you're running. See what other people in the community are on. Get inspired. Show off what makes your static or bagged build unique.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-number">05</div>
+                <h3>Meet Hosting</h3>
+                <p>Organize stance meets, static sessions, or bag shows on the map. A small hosting fee keeps spam away and ensures only real events get posted. Discover meets near you. Connect with people who actually care about fitment, wheel gap, and tucking tire.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-number">06</div>
+                <h3>Real-Time Alerts</h3>
+                <p>Get notifications about new obstacles on your saved routes, construction that affects clearance, or changes reported by the community. Stay informed. Drive prepared.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section">
+        <div class="container">
+            <h2>Simple, transparent <em>pricing.</em></h2>
+            <p class="section-intro">These are our planned prices — the app isn't live yet. Join the waitlist to lock in founding member rates.</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Free</div>
+                    <div class="pricing-amount">
+                        <span class="price">$0</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>See obstacles while navigating</li>
+                        <li>Community obstacle reports</li>
+                        <li>Build showcase</li>
+                        <li>Basic route navigation</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-tier">Pro</div>
+                    <div class="pricing-amount">
+                        <span class="tba">TBA</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Everything in Free</li>
+                        <li>Auto-reroute based on obstacles</li>
+                        <li>Clearance scanner</li>
+                        <li>Meet hosting</li>
+                        <li>Priority support</li>
+                        <li>Advanced route planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="/cdn-cgi/l/email-protection#c8a0ada4a4a788bbabbaa9b8adbba9aeade6a9b8b8">Contact</a>
+            </div>
+            <p class="footer-copy">© 2024 ScrapeSafe. Made for the low life.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Configuration - Replace these with your actual credentials
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+        // Initialize Supabase
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const form = document.getElementById('waitlistForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        function showMessage(message, type) {
+            formMessage.textContent = message;
+            formMessage.className = `form-message ${type} show`;
+            setTimeout(() => {
+                formMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!name || !email) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Joining...';
+
+            try {
+                // Insert into Supabase
+                const { data, error } = await supabase
+                    .from('waitlist_scrapesafe')
+                    .insert([
+                        { 
+                            name: name,
+                            email: email,
+                            created_at: new Date().toISOString()
+                        }
+                    ])
+                    .select();
+
+                if (error) {
+                    if (error.code === '23505') {
+                        showMessage('You\'re already on the waitlist', 'error');
+                    } else {
+                        throw error;
+                    }
+                    return;
+                }
+
+                // Success
+                showMessage('You\'re in! We\'ll be in touch when we launch.', 'success');
+                form.reset();
+
+            } catch (error) {
+           
