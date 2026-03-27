@@ -408,7 +408,7 @@
     <section id="waitlist" class="waitlist-section">
         <div class="container">
             <div class="waitlist-form">
-                <form id="waitlistForm" onsubmit="event.preventDefault(); return false;">
+                <form id="waitlistForm" onsubmit="return false;">
                     <div class="form-group">
                         <input type="text" id="name" placeholder="Your name" required autocomplete="name">
                     </div>
@@ -509,67 +509,84 @@
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
                 <a href="privacy.html">Privacy</a>
-                <a href="/cdn-cgi/l/email-protection#a3cbc6cfcfcce3d0c0d1c2d3c6d0c2c5c68dc2d3d3">Contact</a>
+                <a href="mailto:hello@scrapesafe.app">Contact</a>
             </div>
             <p class="footer-copy">© 2024 ScrapeSafe. Made for the low life.</p>
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Configuration - Replace these with your actual credentials
-        const SUPABASE_URL = 'https://qcdhkmucgxlhtirxxdxt.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjZGhrbXVjZ3hsaHRpcnh4ZHh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTYzNTIsImV4cCI6MjA4OTY5MjM1Mn0.WK9ZauB5GPJQ4wiHRUK6C3qSe6-RXQAbwytT4E0_Zug';
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Supabase configuration
+            const SUPABASE_URL = 'https://qcdhkmucgxlhtirxxdxt.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjZGhrbXVjZ3hsaHRpcnh4ZHh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTYzNTIsImV4cCI6MjA4OTY5MjM1Mn0.WK9ZauB5GPJQ4wiHRUK6C3qSe6-RXQAbwytT4E0_Zug';
 
-        // Initialize Supabase
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            // Initialize Supabase
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        const form = document.getElementById('waitlistForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const formMessage = document.getElementById('formMessage');
+            const form = document.getElementById('waitlistForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
 
-        function showMessage(message, type) {
-            formMessage.textContent = message;
-            formMessage.className = `form-message ${type} show`;
-            setTimeout(() => {
-                formMessage.classList.remove('show');
-            }, 5000);
-        }
-
-        submitBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-
-            if (!name || !email) {
-                showMessage('Please fill in all fields', 'error');
-                return;
+            function showMessage(message, type) {
+                formMessage.textContent = message;
+                formMessage.className = `form-message ${type} show`;
+                setTimeout(() => {
+                    formMessage.classList.remove('show');
+                }, 5000);
             }
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Joining...';
+            submitBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
 
-            try {
-                // Insert into Supabase
-                const { data, error } = await supabase
-                    .from('waitlist_scrapesafe')
-                    .insert([
-                        { 
-                            name: name,
-                            email: email,
-                            created_at: new Date().toISOString()
-                        }
-                    ])
-                    .select();
-
-                if (error) {
-                    if (error.code === '23505') {
-                        showMessage('You\'re already on the waitlist', 'error');
-                    } else {
-                        throw error;
-                    }
+                if (!name || !email) {
+                    showMessage('Please fill in all fields', 'error');
                     return;
                 }
 
-                // Success
-           
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Joining...';
+
+                try {
+                    // Insert into Supabase
+                    const { data, error } = await supabase
+                        .from('waitlist_scrapesafe')
+                        .insert([
+                            { 
+                                name: name,
+                                email: email,
+                                created_at: new Date().toISOString()
+                            }
+                        ])
+                        .select();
+
+                    if (error) {
+                        if (error.code === '23505') {
+                            showMessage('You\'re already on the waitlist', 'error');
+                        } else {
+                            console.error('Supabase error:', error);
+                            showMessage('Something went wrong. Please try again.', 'error');
+                        }
+                        return;
+                    }
+
+                    // Success
+                    showMessage('You\'re in! We\'ll be in touch when we launch.', 'success');
+                    form.reset();
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage('Something went wrong. Please try again.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Join waitlist';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
