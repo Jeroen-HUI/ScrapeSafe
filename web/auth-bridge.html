@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ScrapeSafe — opening app</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      color: #d4d4d4;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    a { color: #5eead4; }
+    .muted { color: #737373; font-size: 0.9rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div>
+    <p>Opening ScrapeSafe…</p>
+    <p class="muted" id="fallback" hidden>
+      If the app does not open, make sure ScrapeSafe is installed, then
+      <a id="openlink" href="#">tap here</a>.
+    </p>
+  </div>
+  <script>
+    (function () {
+      var scheme = 'scrapesafenative';
+      var path = 'auth/callback';
+      var qs = window.location.search || '';
+      var hash = window.location.hash || '';
+      var appUrl = scheme + '://' + path + qs + hash;
+      function go() {
+        window.location.replace(appUrl);
+      }
+      go();
+      document.getElementById('openlink').href = appUrl;
+      setTimeout(function () {
+        document.getElementById('fallback').hidden = false;
+      }, 2500);
+    })();
+  </script>
+</body>
+</html>
