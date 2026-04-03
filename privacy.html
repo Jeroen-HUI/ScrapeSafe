@@ -1,178 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy — ScrapeSafe</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #e8e8e8;
-            background: #0a0a0a;
-            font-size: 17px;
-        }
-
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        header {
-            padding: 32px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .header-content {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .logo {
-            font-size: 18px;
-            font-weight: 500;
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .content {
-            padding: 80px 0;
-        }
-
-        h1 {
-            font-size: 42px;
-            font-weight: 400;
-            margin-bottom: 16px;
-            color: #ffffff;
-        }
-
-        .last-updated {
-            color: #666;
-            font-size: 15px;
-            margin-bottom: 48px;
-        }
-
-        h2 {
-            font-size: 24px;
-            font-weight: 500;
-            margin: 48px 0 16px;
-            color: #ffffff;
-        }
-
-        p {
-            color: #a8a8a8;
-            margin-bottom: 16px;
-            line-height: 1.7;
-        }
-
-        ul {
-            color: #a8a8a8;
-            margin: 16px 0 16px 24px;
-            line-height: 1.7;
-        }
-
-        a {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
-        footer {
-            padding: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
-            color: #444;
-            font-size: 14px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — ScrapeSafe</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           max-width: 800px; margin: 40px auto; padding: 0 24px;
+           color: #1a1a1a; line-height: 1.7; }
+    h1 { font-size: 2rem; } h2 { margin-top: 2rem; }
+    a { color: #0070f3; } footer { margin-top: 3rem; color: #888; font-size: 0.85rem; }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <a href="index.html" class="logo">ScrapeSafe</a>
-        </div>
-    </header>
 
-    <div class="content">
-        <div class="container">
-            <h1>Privacy Policy</h1>
-            <p class="last-updated">Last updated: March 27, 2026</p>
+<h1>Privacy Policy</h1>
+<p><strong>Last updated: April 3, 2026</strong></p>
 
-            <p>We built ScrapeSafe for people who drive low. This privacy policy explains what information we collect, why we collect it, and how you can control it.</p>
+<p>ScrapeSafe ("we", "us", or "our") operates the ScrapeSafe mobile application (the "App").
+This policy explains what personal data we collect, how we use it, your rights, and who
+we share it with. By using the App you agree to this policy.</p>
 
-            <h2>Information We Collect</h2>
-            <p>When you use ScrapeSafe, we collect the following:</p>
-            <ul>
-                <li>Email address and name when you create an account</li>
-                <li>Your car's ride height and suspension specs to calculate safe routes</li>
-                <li>Location data while you're actively using navigation</li>
-                <li>Photos and videos you choose to upload to your profile or build showcase</li>
-                <li>Obstacle reports you submit (location, type, and description)</li>
-                <li>App usage data to improve performance and fix bugs</li>
-            </ul>
+<h2>1. Who We Are</h2>
+<p>ScrapeSafe is operated by Jeroen Huitema. For privacy questions, contact us at
+<a href="mailto:privacy@scrapesafe.app">privacy@scrapesafe.app</a>.</p>
 
-            <h2>How We Use Your Information</h2>
-            <p>Your information helps us run the app:</p>
-            <ul>
-                <li>Calculate routes based on your car's actual clearance</li>
-                <li>Show you obstacles and problem areas on your route</li>
-                <li>Let you share your build with the community if you want</li>
-                <li>Send you alerts about obstacles on routes you save</li>
-                <li>Process payments if you upgrade to Pro or host meets</li>
-                <li>Fix bugs and make the app better</li>
-            </ul>
+<h2>2. Data We Collect</h2>
 
-            <h2>What We Share</h2>
-            <p>We don't sell your data. Period. Here's what's visible to other users:</p>
-            <ul>
-                <li>Your username and profile photo (if you add one)</li>
-                <li>Build photos you post to the showcase</li>
-                <li>Obstacle reports you submit (location and description, not your name unless you choose)</li>
-                <li>Meets you host (meet details and your username)</li>
-            </ul>
-            <p>Everything else stays private.</p>
+<h3>Account data</h3>
+<ul>
+  <li>Email address and password hash (via Supabase Auth)</li>
+  <li>Username, biography, and profile photo you choose to add</li>
+  <li>Speed unit preference</li>
+  <li>Referral / influencer code if you enter one</li>
+</ul>
 
-            <h2>Location Data</h2>
-            <p>We only track your location when you're actively navigating. We don't track you in the background or when the app is closed. Your location is used to show you nearby obstacles and calculate routes. We don't share your location with anyone except you.</p>
+<h3>Garage & car data</h3>
+<ul>
+  <li>Car nickname, model, ground clearance (mm), and modification notes</li>
+  <li>Car photos you upload</li>
+</ul>
 
-            <h2>Payments</h2>
-            <p>If you upgrade to Pro or host meets, payments are processed through Stripe. We don't store your credit card information. Stripe handles all payment data securely.</p>
+<h3>Community content</h3>
+<ul>
+  <li>Feed posts (photos, videos, captions) you publish</li>
+  <li>Stories (photos visible for 24 hours)</li>
+  <li>Comments and likes</li>
+  <li>Groups you create or join, and posts inside them</li>
+  <li>Meets (events) you create or attend, including the location you set</li>
+  <li>Road hazard reports (speed bumps, ramps, inclines) you submit — stored with location</li>
+  <li>Direct messages you send to other users</li>
+</ul>
 
-            <h2>Data Storage</h2>
-            <p>Your data is stored securely and encrypted. We keep your account data as long as your account is active. If you delete your account, we remove your personal information within 30 days. Obstacle reports stay in the database (anonymized) because the community depends on them.</p>
+<h3>Location data</h3>
+<p>We request <strong>foreground-only</strong> location access (while the app is open).
+We use it to show hazards near you, place meets on the map, and calculate clearance routes.
+We do <strong>not</strong> track your location in the background or when the app is closed.
+Location data is not stored on our servers beyond what you explicitly submit as a hazard report
+or meet location.</p>
 
-            <h2>Your Rights</h2>
-            <p>You control your data. You can:</p>
-            <ul>
-                <li>View all data we have about you</li>
-                <li>Download your data anytime</li>
-                <li>Delete your account and all associated data</li>
-                <li>Turn off location tracking (but the app won't work)</li>
-                <li>Remove photos or posts from your profile</li>
-                <li>Opt out of marketing emails (we barely send any anyway)</li>
-            </ul>
+<h3>Subscription & payment data</h3>
+<p>Pro subscriptions and in-app purchases are handled by <strong>Apple App Store</strong> and
+<strong>Google Play</strong> via <strong>RevenueCat</strong>. We receive anonymised entitlement
+status (is the user Pro, how many credits) but we never see or store your card number or
+payment details. See <a href="https://www.revenuecat.com/privacy">RevenueCat's Privacy Policy</a>.</p>
 
-            <h2>Changes to This Policy</h2>
-            <p>If we change this privacy policy, we'll email you before the changes take effect. If you keep using ScrapeSafe after that, you're accepting the new terms.</p>
+<h3>Advertising data</h3>
+<p>The free tier of the App displays native ads served by <strong>Google AdMob</strong>.
+AdMob may collect device identifiers (IDFA on iOS, GAID on Android) and usage data to serve
+relevant ads. We present a GDPR/CCPA consent prompt on first launch so you can choose whether
+to allow personalised advertising. If you decline, you will still see ads but they will not be
+personalised. See <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.
+Pro subscribers do not see ads.</p>
 
-            <h2>Contact Us</h2>
-            <p>Questions about privacy? Email us at <a href="mailto:privacy@scrapesafe.app">privacy@scrapesafe.app</a> and we'll get back to you.</p>
+<h3>Crash & performance data</h3>
+<p>We use <strong>Sentry</strong> for crash reporting. Sentry may collect device model, OS
+version, app version, and a stack trace when the app crashes. No personally identifiable
+information is intentionally included in crash reports.
+See <a href="https://sentry.io/privacy/">Sentry's Privacy Policy</a>.</p>
 
-            <p>We're not lawyers, so this is written in plain English. If you need legal advice about privacy, talk to an actual lawyer.</p>
-        </div>
-    </div>
+<h3>Technical data collected automatically</h3>
+<ul>
+  <li>App version, device OS and model</li>
+  <li>Timestamps of actions (post creation, meet RSVPs, etc.)</li>
+</ul>
 
-    <footer>
-        <div class="container">
-            © 2024 ScrapeSafe. Made for the low life.
-        </div>
-    </footer>
+<h2>3. How We Use Your Data</h2>
+<ul>
+  <li>Provide and improve the App and its features</li>
+  <li>Let you share builds, posts, and stories with the community</li>
+  <li>Calculate safe routes and show hazards relevant to your car's clearance</li>
+  <li>Process Pro subscriptions and enforce feature access</li>
+  <li>Show ads to free-tier users (with consent where required)</li>
+  <li>Debug crashes and fix bugs</li>
+  <li>Comply with legal obligations</li>
+</ul>
+
+<h2>4. Legal Bases for Processing (GDPR)</h2>
+<p>If you are in the European Economic Area (EEA) or United Kingdom, we process your data under the following bases:</p>
+<ul>
+  <li><strong>Contract</strong> — to provide the services you signed up for</li>
+  <li><strong>Legitimate interests</strong> — to improve the App, prevent abuse, and ensure security</li>
+  <li><strong>Consent</strong> — for personalised advertising (you can withdraw consent at any time in the app's ad consent settings)</li>
+  <li><strong>Legal obligation</strong> — where required by law</li>
+</ul>
+
+<h2>5. What We Share</h2>
+<p>We do not sell your personal data. We share it only with:</p>
+<ul>
+  <li><strong>Supabase</strong> (database and storage hosting, EU region available) — <a href="https://supabase.com/privacy">Privacy Policy</a></li>
+  <li><strong>RevenueCat</strong> (subscription management) — <a href="https://www.revenuecat.com/privacy">Privacy Policy</a></li>
+  <li><strong>Google AdMob</strong> (advertising, free tier only) — <a href="https://policies.google.com/privacy">Privacy Policy</a></li>
+  <li><strong>Sentry</strong> (crash reporting) — <a href="https://sentry.io/privacy/">Privacy Policy</a></li>
+  <li><strong>Law enforcement or authorities</strong> — if required by law or to protect the safety of users</li>
+</ul>
+<p>Content you post publicly (feed posts, your username, profile photo, hazard reports, public meets) is visible to other users of the App.</p>
+
+<h2>6. Data Retention</h2>
+<ul>
+  <li>Account data is kept as long as your account is active.</li>
+  <li>Stories are automatically deleted 24 hours after posting.</li>
+  <li>If you delete your account we remove your personal data within 30 days.</li>
+  <li>Anonymised hazard data may be retained to maintain map quality for other users.</li>
+</ul>
+
+<h2>7. Your Rights</h2>
+<p>Depending on your location you have the right to:</p>
+<ul>
+  <li><strong>Access</strong> the personal data we hold about you</li>
+  <li><strong>Correct</strong> inaccurate data</li>
+  <li><strong>Delete</strong> your account and associated data</li>
+  <li><strong>Export</strong> your data in a portable format</li>
+  <li><strong>Object</strong> to or restrict certain processing</li>
+  <li><strong>Withdraw consent</strong> for personalised ads at any time via the in-app consent prompt</li>
+  <li><strong>Lodge a complaint</strong> with your local data protection authority (for EEA users: your national DPA; for Netherlands residents: <a href="https://www.autoriteitpersoonsgegevens.nl">Autoriteit Persoonsgegevens</a>)</li>
+</ul>
+<p>To exercise any of these rights, email <a href="mailto:privacy@scrapesafe.app">privacy@scrapesafe.app</a>.</p>
+
+<h2>8. California Residents (CCPA)</h2>
+<p>If you are a California resident, you have the right to know what personal information we collect and share, the right to delete your personal information, and the right to opt out of the "sale" of personal information. We do not sell personal information. To exercise your rights, contact <a href="mailto:privacy@scrapesafe.app">privacy@scrapesafe.app</a>.</p>
+
+<h2>9. Children</h2>
+<p>ScrapeSafe is not directed at children under the age of 13 (or 16 in the EEA). We do not knowingly collect personal data from children. If you believe a child has provided us with their data, please contact us and we will delete it promptly.</p>
+
+<h2>10. International Transfers</h2>
+<p>Your data may be processed in countries outside your own. We use service providers
+(Supabase, RevenueCat, Google, Sentry) that operate under appropriate data transfer mechanisms
+(Standard Contractual Clauses for EEA transfers).</p>
+
+<h2>11. Changes to This Policy</h2>
+<p>If we make material changes we will update the "Last updated" date above and, where appropriate, notify you by email or an in-app notice. Continued use of the App after changes take effect constitutes acceptance.</p>
+
+<h2>12. Contact</h2>
+<p>For any privacy questions: <a href="mailto:privacy@scrapesafe.app">privacy@scrapesafe.app</a></p>
+
+<footer>© 2026 ScrapeSafe. All rights reserved.</footer>
 </body>
 </html>
