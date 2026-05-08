@@ -1,3 +1,9 @@
+# ScrapeSafe site setup notes
+
+The marketing site can use a **Supabase-backed waitlist** on the homepage. Configure `js/site-config.js` and run the SQL in the main `README.md`. The older “ClearIt” + Resend steps below are **archival** only.
+
+---
+
 # ClearIt Landing Page Setup Guide
 
 ## What You'll Need

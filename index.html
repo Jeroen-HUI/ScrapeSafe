@@ -1,592 +1,898 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScrapeSafe — Navigate Low. Drive Smart.</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScrapeSafe: map-aware routes and community for lowered cars</title>
+    <meta
+      name="description"
+      content="ScrapeSafe is a dark-themed iOS and Android phone app: hazards on the map, calmer routing-minded navigation, garage and feed, groups, meets, and DMs. Built for ground clearance and respectful driving."
+    />
+    <link rel="canonical" href="https://scrapesafe.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://scrapesafe.app/" />
+    <meta
+      property="og:title"
+      content="ScrapeSafe: map-aware routes for lowered cars"
+    />
+    <meta
+      property="og:description"
+      content="See road context on the map, plan with awareness, and drive with your community. It does not replace good judgment behind the wheel."
+    />
+    <meta property="og:image" content="https://scrapesafe.app/og-image.png" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="ScrapeSafe: map-aware routes for lowered cars"
+    />
+    <meta
+      name="twitter:description"
+      content="Hazard context, routing-minded navigation, garage, feed, groups, meets, and messaging for people who care about clearance."
+    />
+    <meta name="twitter:image" content="https://scrapesafe.app/og-image.png" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #e8e8e8;
-            background: #0a0a0a;
-            font-size: 17px;
-        }
-
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            padding: 32px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .header-content {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 18px;
-            font-weight: 500;
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        nav a {
-            color: #888;
-            text-decoration: none;
-            font-size: 15px;
-            margin-left: 24px;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: #ffffff;
-        }
-
-        /* Hero */
-        .hero {
-            padding: 120px 0 80px;
-            text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 32px;
-            letter-spacing: 0.02em;
-        }
-
-        .hero h1 {
-            font-size: 52px;
-            font-weight: 400;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            color: #ffffff;
-        }
-
-        .hero h1 em {
-            font-style: italic;
-            font-weight: 300;
-            color: #888;
-        }
-
-        .hero-subtitle {
-            font-size: 19px;
-            color: #a8a8a8;
-            max-width: 520px;
-            margin: 0 auto 48px;
-            line-height: 1.6;
-        }
-
-        .hero-meta {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            margin-top: 48px;
-            flex-wrap: wrap;
-        }
-
-        .hero-meta-item {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .hero-car {
-            max-width: 400px;
-            margin: 48px auto;
-        }
-
-        .car-illustration {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Waitlist Form */
-        .waitlist-section {
-            padding: 60px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .waitlist-form {
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        input[type="email"],
-        input[type="text"] {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.02);
-            color: #ffffff;
-            transition: all 0.2s;
-        }
-
-        input::placeholder {
-            color: #666;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        button {
-            width: 100%;
-            padding: 14px 24px;
-            font-size: 16px;
-            font-weight: 500;
-            color: white;
-            background: #ffffff;
-            color: #000;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        button:hover {
-            background: #e8e8e8;
-        }
-
-        button:disabled {
-            background: #333;
-            color: #666;
-            cursor: not-allowed;
-        }
-
-        .form-message {
-            padding: 12px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-top: 12px;
-            display: none;
-        }
-
-        .form-message.success {
-            background: rgba(34, 197, 94, 0.1);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.2);
-        }
-
-        .form-message.error {
-            background: rgba(239, 68, 68, 0.1);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-        }
-
-        .form-message.show {
-            display: block;
-        }
-
-        /* Section Headers */
-        .section {
-            padding: 100px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .section h2 {
-            font-size: 36px;
-            font-weight: 400;
-            margin-bottom: 16px;
-            color: #ffffff;
-        }
-
-        .section h2 em {
-            font-style: italic;
-            font-weight: 300;
-            color: #666;
-        }
-
-        .section-intro {
-            font-size: 19px;
-            color: #a8a8a8;
-            margin-bottom: 60px;
-            max-width: 560px;
-            line-height: 1.6;
-        }
-
-        /* Features */
-        .feature-item {
-            margin-bottom: 64px;
-        }
-
-        .feature-number {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .feature-item h3 {
-            font-size: 24px;
-            font-weight: 500;
-            margin-bottom: 12px;
-            color: #ffffff;
-        }
-
-        .feature-item p {
-            color: #a8a8a8;
-            line-height: 1.7;
-        }
-
-        /* Pricing */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 60px;
-        }
-
-        .pricing-card {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 32px 24px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.2s;
-        }
-
-        .pricing-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .pricing-tier {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 12px;
-            color: #ffffff;
-        }
-
-        .pricing-amount {
-            margin-bottom: 24px;
-        }
-
-        .pricing-amount .price {
-            font-size: 48px;
-            font-weight: 300;
-            color: #ffffff;
-        }
-
-        .pricing-amount .period {
-            font-size: 15px;
-            color: #666;
-        }
-
-        .pricing-amount .tba {
-            font-size: 28px;
-            color: #666;
-            font-weight: 400;
-        }
-
-        .pricing-features {
-            list-style: none;
-        }
-
-        .pricing-features li {
-            padding: 8px 0;
-            color: #888;
-            font-size: 15px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .pricing-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #666;
-        }
-
-        /* Footer */
-        footer {
-            padding: 80px 0 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
-        }
-
-        .footer-links {
-            margin-bottom: 32px;
-        }
-
-        .footer-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            margin: 0 16px;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: #ffffff;
-        }
-
-        .footer-copy {
-            color: #444;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .hero-subtitle {
-                font-size: 17px;
-            }
-
-            .section h2 {
-                font-size: 28px;
-            }
-
-            nav a {
-                margin-left: 16px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <a href="#" class="logo">ScrapeSafe</a>
-            <nav>
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#waitlist">Join Waitlist</a>
-            </nav>
-        </div>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a
+          class="logo"
+          href="/"
+          aria-label="ScrapeSafe home"
+          aria-current="page"
+        >
+          <img
+            class="logo__mark"
+            src="brand/logo.png"
+            alt=""
+            width="40"
+            height="40"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <span class="logo__wordmark"
+            ><span class="logo__accent">Scrape</span>Safe</span
+          >
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#business">Business</a>
+          <a href="#community">Community</a>
+          <a href="#safety">Safety</a>
+          <a href="#faq">FAQ</a>
+          <a href="#waitlist">Waitlist</a>
+          <a class="nav__cta" href="#download">Download</a>
+        </nav>
+      </div>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-badge">Now taking founding members</div>
-            <h1><em>Navigate low.</em> Drive smart. <em>Avoid scrapes.</em></h1>
-            <p class="hero-subtitle">The first navigation app built for slammed and stanced cars. Find routes that clear, avoid speed bumps you can't see coming, and connect with the community that gets it.</p>
-            
-            <div class="hero-car">
-                <img src="car-illustration.png" alt="Slammed 350Z" class="car-illustration">
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="container hero__grid">
+          <div>
+            <span class="eyebrow">For people who drive low</span>
+            <h1 id="hero-heading">
+              Ground clearance on the map, with people who get it.
+            </h1>
+            <p class="hero__lead">
+              ScrapeSafe is for drivers who think about scrapes and want smarter
+              road awareness. Here, “scrape” means clearance and respect for the
+              road, not driving like a fool.
+
+              <strong style="color: var(--text); font-weight: 600"
+                >It is still on you to pay attention, follow local rules, and use
+                common sense.</strong
+              >
+            </p>
+            <ul class="hero__bullets">
+              <li>
+                A map with crowdsourced hazards (bumps, tables, inclines, and
+                more). Coverage depends on area; it will never be complete.
+              </li>
+              <li>
+                Routing and navigation aimed at informed drives, not only the
+                fastest A to B line.
+              </li>
+              <li>
+                A real community layer: garage, feed, groups, meets, and
+                messaging around actual drives.
+              </li>
+            </ul>
+            <div class="store-row">
+              <span
+                class="btn-store btn-store--soon"
+                role="status"
+                title="iPhone App Store version is not live yet"
+                >App Store (coming soon)</span
+              >
+              <a
+                class="btn-store"
+                id="store-google"
+                href="#download"
+                rel="noopener noreferrer"
+                target="_blank"
+                >Get it on Google Play</a
+              >
             </div>
-
-            <div class="hero-meta">
-                <span class="hero-meta-item">Community-powered</span>
-                <span class="hero-meta-item">iOS & Android</span>
-                <span class="hero-meta-item">Launching 2026</span>
-                <span class="hero-meta-item">Free to start</span>
-            </div>
-        </div>
-    </section>
-
-    <section id="waitlist" class="waitlist-section">
-        <div class="container">
-            <div class="waitlist-form">
-                <form id="waitlistForm" onsubmit="return false;">
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Your name" required autocomplete="name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="Email address" required autocomplete="email">
-                    </div>
-                    <button type="button" id="submitBtn">Join waitlist</button>
-                </form>
-                <div id="formMessage" class="form-message"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="section">
-        <div class="container">
-            <h2>Everything you need to <em>drive slammed.</em></h2>
-            <p class="section-intro">ScrapeSafe gives you the tools to navigate safely, contribute to the community, and connect with other people who daily their slammed builds.</p>
-
-            <div class="feature-item">
-                <div class="feature-number">01</div>
-                <h3>Smart Routing</h3>
-                <p>See obstacles on your route as you navigate. Free users can view all community-reported speed bumps, steep driveways, scrapy parking garage entrances, and problem areas. Pro members get automatic rerouting that steers you away from frame-scraping obstacles before you reach them. Routes adapt in real-time based on your car's ground clearance and live community data.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-number">02</div>
-                <h3>Clearance Scanner</h3>
-                <p>Point your camera at any slope, curb, or obstacle. Enter your car's ride height. ScrapeSafe calculates the angle and tells you if you'll make it. No more guessing. No more scraping. Just point and know. Available for Pro members.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-number">03</div>
-                <h3>Community Reports</h3>
-                <p>Every driver contributes. Spot a speed bump that'll scrape your splitter? Mark it. Find a safe route through a cambered road? Share it. Know which gas stations have steep entrance angles? Report them. The more people contribute, the better the data gets for everyone running low. You help the community. The community helps you.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-number">04</div>
-                <h3>Build Showcase</h3>
-                <p>Post photos of your slammed car. Share your wheel setup, offset specs, suspension mods, and how low you're running. See what other people in the community are on. Get inspired. Show off what makes your static or bagged build unique.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-number">05</div>
-                <h3>Meet Hosting</h3>
-                <p>Organize stance meets, static sessions, or bag shows on the map. A small hosting fee keeps spam away and ensures only real events get posted. Discover meets near you. Connect with people who actually care about fitment, wheel gap, and tucking tire.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-number">06</div>
-                <h3>Real-Time Alerts</h3>
-                <p>Get notifications about new obstacles on your saved routes, construction that affects clearance, or changes reported by the community. Stay informed. Drive prepared.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="section">
-        <div class="container">
-            <h2>Simple, transparent <em>pricing.</em></h2>
-            <p class="section-intro">These are our planned prices — the app isn't live yet. Join the waitlist to lock in founding member rates.</p>
-
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-tier">Free</div>
-                    <div class="pricing-amount">
-                        <span class="price">$0</span>
-                        <span class="period">/month</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>See obstacles while navigating</li>
-                        <li>Community obstacle reports</li>
-                        <li>Build showcase</li>
-                        <li>Basic route navigation</li>
-                    </ul>
+            <p class="store-hint" data-store-hint>
+              Add your Google Play listing URL in
+              <code>js/site-config.js</code> if this button is not live yet.
+            </p>
+            <p class="store-hint store-hint--ios">
+              iPhone: App Store release is coming soon. Android is on Google
+              Play today.
+            </p>
+          </div>
+          <div class="hero__visual">
+            <div
+              class="carousel"
+              data-carousel
+              tabindex="0"
+              aria-roledescription="carousel"
+              aria-label="ScrapeSafe app screenshots"
+            >
+              <span class="carousel__status" aria-live="polite"></span>
+              <div class="carousel__viewport">
+                <div class="carousel__track">
+                  <figure class="carousel__slide is-active">
+                    <img
+                      src="screens/slide-01.png"
+                      alt="ScrapeSafe map on a phone showing hazard markers and navigation controls"
+                      width="800"
+                      height="1600"
+                      loading="eager"
+                      fetchpriority="high"
+                    />
+                    <figcaption class="carousel__caption">
+                      Map view with hazards, clusters, and teal actions
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-next">
+                    <img
+                      src="screens/slide-02.png"
+                      alt="Add hazard sheet with speed bump type selected on the map"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Report bumps, tables, and steep inclines
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-hidden">
+                    <img
+                      src="screens/slide-03.png"
+                      alt="Social feed showing a car post with like and comment actions"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Feed for builds and drive-day posts
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-hidden">
+                    <img
+                      src="screens/slide-04.png"
+                      alt="Groups screen listing communities and explore section"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Groups: your crews and discovery
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-hidden">
+                    <img
+                      src="screens/slide-05.png"
+                      alt="Meets screen with create meet call to action"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Join or host meets
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-hidden">
+                    <img
+                      src="screens/slide-06.png"
+                      alt="Creating a meet with group-only option and map location"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Group-only invites when you want them private
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-hidden">
+                    <img
+                      src="screens/slide-07.png"
+                      alt="Garage profile with add car dashed outline highlighted"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Garage: photos, nickname, mods
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-hidden">
+                    <img
+                      src="screens/slide-08.png"
+                      alt="Can I clear it tool with bumper height fields and likely clears result"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Clearance helper (a guide, not a promise)
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-hidden">
+                    <img
+                      src="screens/slide-09.png"
+                      alt="Profile settings with English and Nederlands language toggle"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      English and Dutch in the app chrome
+                    </figcaption>
+                  </figure>
+                  <figure class="carousel__slide is-prev">
+                    <img
+                      src="screens/slide-10.png"
+                      alt="ScrapeSafe map tab with caption for people who drive low"
+                      width="800"
+                      height="1600"
+                      loading="lazy"
+                    />
+                    <figcaption class="carousel__caption">
+                      Built for people who drive low on purpose
+                    </figcaption>
+                  </figure>
                 </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-tier">Pro</div>
-                    <div class="pricing-amount">
-                        <span class="tba">TBA</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>Everything in Free</li>
-                        <li>Auto-reroute based on obstacles</li>
-                        <li>Clearance scanner</li>
-                        <li>Meet hosting</li>
-                        <li>Priority support</li>
-                        <li>Advanced route planning</li>
-                    </ul>
+              </div>
+              <div class="carousel__toolbar-wrap">
+                <div class="carousel__toolbar">
+                  <button
+                    type="button"
+                    class="carousel__btn carousel__btn--prev"
+                    aria-label="Previous screenshot"
+                  >
+                    ‹
+                  </button>
+                  <div
+                    class="carousel__dots"
+                    role="group"
+                    aria-label="Screenshot thumbnails"
+                  >
+                    <button
+                      type="button"
+                      class="carousel__dot is-active"
+                      aria-label="Slide 1 of 10"
+                      aria-current="true"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 2 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 3 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 4 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 5 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 6 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 7 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 8 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 9 of 10"
+                    ></button>
+                    <button
+                      type="button"
+                      class="carousel__dot"
+                      aria-label="Slide 10 of 10"
+                    ></button>
+                  </div>
+                  <button
+                    type="button"
+                    class="carousel__btn carousel__btn--next"
+                    aria-label="Next screenshot"
+                  >
+                    ›
+                  </button>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <footer>
+      <section class="section" id="how" aria-labelledby="how-heading">
         <div class="container">
-            <div class="footer-links">
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="mailto:hello@scrapesafe.app">Contact</a>
-            </div>
-            <p class="footer-copy">© 2024 ScrapeSafe. Made for the low life.</p>
+          <h2 class="section__title" id="how-heading">How it works</h2>
+          <p class="section__intro">
+            Three steps from opening the app to driving with clearer context.
+            You are still responsible on the road.
+          </p>
+          <div class="steps">
+            <article class="step">
+              <p class="step__num">1. Discover</p>
+              <h3>See the map, not just a line</h3>
+              <p>
+                Explore hazards and community markers, open details, and get a
+                feel for what others reported. It will never be complete, so stay
+                sharp.
+              </p>
+            </article>
+            <article class="step">
+              <p class="step__num">2. Plan</p>
+              <h3>Route with awareness</h3>
+              <p>
+                Build a plan that fits how you drive: clearance-minded routing
+                and cues alongside navigation. We are not promising zero contact
+                on every street.
+              </p>
+            </article>
+            <article class="step">
+              <p class="step__num">3. Drive</p>
+              <h3>Stay in touch with your crew</h3>
+              <p>
+                Meets, groups, and messages keep the drive tied to people you
+                trust. Slow down for conditions and other road users.
+              </p>
+            </article>
+          </div>
         </div>
+      </section>
+
+      <section class="section" id="features" aria-labelledby="features-h">
+        <div class="container">
+          <h2 class="section__title" id="features-h">What you get in the app</h2>
+          <p class="section__intro">
+            Dark UI with a teal “signal” accent on iOS and Android phones. Tabs
+            and tools match what you see on your device.
+          </p>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <p class="feature-card__tag">Map</p>
+              <h3>Live map and hazard context</h3>
+              <p>
+                Work with speed bumps, speed tables, inclines, and other signals.
+                Add what you spot, with verification and moderation in the app.
+                No product can cover every road perfectly.
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Routing</p>
+              <h3>Navigation that respects clearance</h3>
+              <p>
+                Turn-by-turn with hazard callouts where data exists. It is a
+                different job than what Google Maps or Waze optimize for; when
+                our backends and your settings allow, we lean toward smoother,
+                better-informed lines.
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Clear</p>
+              <h3>“Can I clear it?” helper</h3>
+              <p>
+                Model a bump or incline with heights and angles, plus optional
+                tilt sampling, to estimate whether your bumper likely clears. It
+                is a tool, not a lab-grade guarantee.
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Garage</p>
+              <h3>Your cars, photos, mods</h3>
+              <p>
+                Save clearance-related fields and build notes so tools and
+                navigation line up with how the car actually sits.
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Feed</p>
+              <h3>Feed and stories</h3>
+              <p>
+                Share builds and moments, discover others, and keep the app from
+                feeling like noise. What people write stays as they wrote it (no
+                auto-translation of user posts in the app).
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Groups</p>
+              <h3>Groups and smaller circles</h3>
+              <p>
+                Create or join communities around cities, styles, or crews, with
+                private meets and posts where you set them.
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Meets</p>
+              <h3>Meets and events</h3>
+              <p>
+                Host or join rolling meets on the map, including group-only
+                options so the right people see the invite.
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Messages</p>
+              <h3>DMs and group chats</h3>
+              <p>
+                Coordinate starts, routes, and last-minute changes in threads
+                tied to real profiles, not random spam blasts.
+              </p>
+            </article>
+            <article class="feature-card">
+              <p class="feature-card__tag">Pro</p>
+              <h3>Optional Pro</h3>
+              <p>
+                Subscriptions (for example via RevenueCat) can unlock more
+                routing, hosting, or quality-of-life. Check the store listing for
+                what is live in your region.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="business" aria-labelledby="business-h">
+        <div class="container">
+          <h2 class="section__title" id="business-h">ScrapeSafe Business</h2>
+          <p class="section__intro">
+            For shops, organizers, and crews who want Pro-level tools and to
+            show up on the map, not only as a personal profile.
+          </p>
+          <div class="business-card">
+            <p class="business-card__tag">Shops and organizers</p>
+            <h3>Everything Pro-equivalent, plus ways customers find you</h3>
+            <p class="section__intro" style="margin-bottom: 1rem">
+              Business is for venues and hosts: be visible where drivers plan
+              routes, highlight what you offer, and run meets without bumping
+              into the same caps as casual users (exact limits are in the app).
+            </p>
+            <ul class="business-list">
+              <li>
+                <strong style="color: var(--text)">Map presence:</strong> a
+                business map pin so people can discover you in context.
+              </li>
+              <li>
+                <strong style="color: var(--text)">Highlights:</strong> show
+                events, hours, or drops without spamming the whole feed.
+              </li>
+              <li>
+                <strong style="color: var(--text)">Insights:</strong> light
+                reporting so you see what resonates (details live in the product).
+              </li>
+              <li>
+                <strong style="color: var(--text)">Contact shortcuts:</strong>
+                WhatsApp or other contact options where we surface them, so map
+                to chat is fewer taps.
+              </li>
+              <li>
+                <strong style="color: var(--text)">Meet hosting:</strong>
+                unlimited meet hosting in current Business copy (confirm your
+                quota in-app).
+              </li>
+            </ul>
+            <p class="business-note">
+              Some accounts get a business flag at signup; that is separate from
+              an active <strong>Business subscription</strong>, which unlocks
+              the paid business tools. Open ScrapeSafe to see which one applies
+              to you.
+            </p>
+            <p class="business-note" style="margin-top: 0.75rem">
+              <a
+                id="store-google-business"
+                href="#download"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-store"
+                style="display: inline-flex; margin-top: 0.5rem"
+                >Get the app on Google Play</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section proof"
+        id="community"
+        aria-labelledby="community-h"
+      >
+        <div class="container">
+          <h2 class="section__title" id="community-h">Community</h2>
+          <p class="section__intro">
+            ScrapeSafe mixes maps and tools with garage pride and meets, without
+            treating safety like a stunt for clout.
+          </p>
+          <div class="proof__box">
+            <p style="margin: 0 0 0.5rem">
+              <strong style="color: var(--text)">Press and quotes</strong>
+            </p>
+            <p style="margin: 0 0 0.75rem">
+              We only add logos or short quotes when we have clear permission. No
+              fake testimonials.
+            </p>
+            <p style="margin: 0">
+              Press, shops, organizers, or community voices: want to be listed
+              here? Email
+              <a class="js-open-email" href="mailto:hello@scrapesafe.app"
+                >hello@scrapesafe.app</a
+              >
+              with who you are, a link or brief context, and we will get back to
+              you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="safety" aria-labelledby="safety-h">
+        <div class="container container--narrow">
+          <h2 class="section__title" id="safety-h">Safety, privacy, realism</h2>
+          <p class="section__intro">
+            We take driving seriously. The app adds context; it does not replace
+            what you must still watch for yourself.
+          </p>
+          <ul class="safety-list">
+            <li>
+              <strong style="color: var(--text)">No full hazard coverage.</strong>
+              Markers depend on users, time, and moderation. Roads change, and
+              gaps will exist.
+            </li>
+            <li>
+              <strong style="color: var(--text)">No “guaranteed safe route.”</strong>
+              Weather, traffic, roadworks, and mistakes still happen. Use your
+              eyes.
+            </li>
+            <li>
+              <strong style="color: var(--text)">Privacy in the product:</strong>
+              accounts, clear policies, and flows like delete-account. Read our
+              <a href="privacy.html">Privacy Policy</a> for what we collect and
+              why.
+            </li>
+            <li>
+              Location, notifications, and media prompts follow platform rules.
+              Foreground and background use is explained for navigation and
+              alerts.
+            </li>
+          </ul>
+          <span class="pro-pill"
+            >Pro is optional. The free tier is supported by the same product mix
+            you see in your region.</span
+          >
+        </div>
+      </section>
+
+      <section class="section" id="faq" aria-labelledby="faq-h">
+        <div class="container container--narrow">
+          <h2 class="section__title" id="faq-h">FAQ</h2>
+          <p class="section__intro">
+            Honest answers if you are comparing us to other maps, or searching
+            for things like “low car routing” and “speed bump map”.
+          </p>
+          <div class="faq-list">
+            <details>
+              <summary>What is ScrapeSafe in one line?</summary>
+              <p class="faq__body">
+                A dark-themed phone app that combines map hazard context,
+                clearance-minded navigation, and a driving community (garage,
+                feed, groups, meets, DMs) for people who care about ground
+                clearance.
+              </p>
+            </details>
+            <details>
+              <summary>Is ScrapeSafe another Google Maps or Waze?</summary>
+              <p class="faq__body">
+                Those apps are great for general traffic and ETA. ScrapeSafe adds
+                clearance-oriented context and social features for a specific
+                crowd. You can still use other maps wherever they fit. We are not
+                part of Google or Waze.
+              </p>
+            </details>
+            <details>
+              <summary>Does the map show every speed bump?</summary>
+              <p class="faq__body">
+                No. Data is crowdsourced and moderated. Some regions are packed;
+                others are thin. Slow down and look ahead, especially at night or
+                in rain.
+              </p>
+            </details>
+            <details>
+              <summary>Does navigation guarantee I will not scrape?</summary>
+              <p class="faq__body">
+                No. Routing and callouts help with surprises; they do not replace
+                your car’s limits, load, tyre pressure, or your own judgment.
+              </p>
+            </details>
+            <details>
+              <summary>What does the “Clear” tool do?</summary>
+              <p class="faq__body">
+                It estimates likely clearance over a modeled bump or incline from
+                numbers you enter (and optional phone tilt). Think of it as
+                guidance, not a certified measurement.
+              </p>
+            </details>
+            <details>
+              <summary>Who can see my garage and posts?</summary>
+              <p class="faq__body">
+                Visibility follows your account and where you post (feed, groups,
+                meets). Check in-app controls and our
+                <a href="privacy.html">Privacy Policy</a>.
+              </p>
+            </details>
+            <details>
+              <summary>Is there a subscription?</summary>
+              <p class="faq__body">
+                The app may offer ScrapeSafe Pro (and related entitlements) with
+                billing through the App Store or Google Play. Exact prices and
+                benefits are on the store page where you download.
+              </p>
+            </details>
+            <details>
+              <summary>What is ScrapeSafe Business?</summary>
+              <p class="faq__body">
+                Business is the shop and organizer tier: everything
+                Pro-equivalent, plus business-facing tools such as a map pin,
+                highlights, insights, WhatsApp or contact shortcuts, and strong
+                meet-hosting for organizers (see in-app copy for limits). Some
+                people get a business badge at signup (<strong>business
+                account</strong> in our backend); the paid
+                <strong>Business subscription</strong> turns on the full business
+                toolkit. Check your profile or entitlements in the app.
+              </p>
+            </details>
+            <details>
+              <summary>Languages and units?</summary>
+              <p class="faq__body">
+                Many builds ship English and Dutch in the UI, plus speed units
+                like km/h and mph. Community text stays in whatever language the
+                author used.
+              </p>
+            </details>
+            <details>
+              <summary>How do I report a safety or abuse issue?</summary>
+              <p class="faq__body">
+                Use in-app reporting where it exists and email
+                <a class="js-open-email" href="mailto:hello@scrapesafe.app"
+                  >hello@scrapesafe.app</a
+                >
+                for account or policy questions.
+              </p>
+            </details>
+            <details>
+              <summary>Where are Privacy and Terms?</summary>
+              <p class="faq__body">
+                The same URLs the app uses:
+                <a href="privacy.html">Privacy Policy</a> and
+                <a href="terms.html">Terms of Service</a>.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section waitlist-section" id="waitlist" aria-labelledby="waitlist-h">
+        <div class="container container--narrow">
+          <h2 class="section__title" id="waitlist-h">Waitlist</h2>
+          <p class="section__intro">
+            Want an email when iPhone launches or when we share something useful?
+            Drop your details. No spam, just occasional news.
+          </p>
+          <form id="waitlist-form" class="waitlist-form" novalidate>
+            <div class="waitlist-form__row">
+              <label class="waitlist-form__label" for="waitlist-name">Name</label>
+              <input
+                id="waitlist-name"
+                name="name"
+                type="text"
+                class="waitlist-form__input"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+              />
+            </div>
+            <div class="waitlist-form__row">
+              <label class="waitlist-form__label" for="waitlist-email"
+                >Email</label
+              >
+              <input
+                id="waitlist-email"
+                name="email"
+                type="email"
+                class="waitlist-form__input"
+                required
+                autocomplete="email"
+                placeholder="you@example.com"
+              />
+            </div>
+            <button type="submit" class="waitlist-form__submit" id="waitlist-submit">
+              Join waitlist
+            </button>
+          </form>
+          <p
+            id="waitlist-message"
+            class="form-message"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
+          <p class="store-hint" data-waitlist-config-hint hidden>
+            Add <code>supabaseUrl</code> and <code>supabaseAnonKey</code> in
+            <code>js/site-config.js</code> to turn this on. See README for the SQL
+            table.
+          </p>
+        </div>
+      </section>
+
+      <section class="section download-band" id="download" aria-labelledby="dl-h">
+        <div class="container">
+          <h2 class="section__title" id="dl-h">Download ScrapeSafe</h2>
+          <p class="section__intro" style="margin-left: auto; margin-right: auto">
+            On Android you can install or wishlist on
+            <a
+              href="https://play.google.com/store/apps/details?id=com.scrapesafe.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Google Play</a
+            >. iPhone App Store: coming soon (phone app only; not built for
+            iPad).
+          </p>
+          <div class="store-row">
+            <span
+              class="btn-store btn-store--soon"
+              role="status"
+              title="iPhone App Store version is not live yet"
+              >App Store (coming soon)</span
+            >
+            <a
+              class="btn-store"
+              id="store-google-bottom"
+              href="#download"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Get it on Google Play</a
+            >
+          </div>
+          <p class="store-hint" data-store-hint>
+            Set <code>playStoreUrl</code> in <code>js/site-config.js</code> if
+            the Play button should point somewhere else.
+          </p>
+          <p class="store-hint store-hint--ios">
+            When the iPhone app ships, this will be a normal App Store button.
+          </p>
+          <p style="margin-top: 2rem; color: var(--text-dim); font-size: 0.9rem">
+            Support:
+            <a class="js-open-email" href="mailto:hello@scrapesafe.app"
+              >hello@scrapesafe.app</a
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer__links">
+          <a href="#features">Features</a>
+          <a href="#business">Business</a>
+          <a href="#faq">FAQ</a>
+          <a href="#waitlist">Waitlist</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a class="js-open-email" href="mailto:hello@scrapesafe.app"
+            >Support</a
+          >
+        </div>
+        <div class="footer__social" aria-label="ScrapeSafe on social media">
+          <a
+            class="footer__social-link"
+            href="https://www.instagram.com/scrape.safe/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ScrapeSafe on Instagram"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+              />
+            </svg>
+          </a>
+          <a
+            class="footer__social-link"
+            href="https://www.tiktok.com/@scrapesafe"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ScrapeSafe on TikTok"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"
+              />
+            </svg>
+          </a>
+          <a
+            class="footer__social-link"
+            href="https://x.com/SafeScrape"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ScrapeSafe on X"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
+            </svg>
+          </a>
+        </div>
+        <p class="footer__copy">
+          © 2026 ScrapeSafe. Built for clearer context on the road, and respect
+          for other road users.
+        </p>
+      </div>
     </footer>
 
-    <script>
-        // Wait for DOM to be ready
-        document.addEventListener('DOMContentLoaded', function() {
-            // Supabase configuration
-            const SUPABASE_URL = 'https://qcdhkmucgxlhtirxxdxt.supabase.co';
-            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjZGhrbXVjZ3hsaHRpcnh4ZHh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTYzNTIsImV4cCI6MjA4OTY5MjM1Mn0.WK9ZauB5GPJQ4wiHRUK6C3qSe6-RXQAbwytT4E0_Zug';
-
-            // Initialize Supabase
-            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-            const form = document.getElementById('waitlistForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const formMessage = document.getElementById('formMessage');
-
-            function showMessage(message, type) {
-                formMessage.textContent = message;
-                formMessage.className = `form-message ${type} show`;
-                setTimeout(() => {
-                    formMessage.classList.remove('show');
-                }, 5000);
-            }
-
-            submitBtn.addEventListener('click', async function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-
-                if (!name || !email) {
-                    showMessage('Please fill in all fields', 'error');
-                    return;
-                }
-
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Joining...';
-
-                try {
-                    // Insert into Supabase
-                    const { data, error } = await supabase
-                        .from('waitlist_scrapesafe')
-                        .insert([
-                            { 
-                                name: name,
-                                email: email,
-                                created_at: new Date().toISOString()
-                            }
-                        ])
-                        .select();
-
-                    if (error) {
-                        if (error.code === '23505') {
-                            showMessage('You\'re already on the waitlist', 'error');
-                        } else {
-                            console.error('Supabase error:', error);
-                            showMessage('Something went wrong. Please try again.', 'error');
-                        }
-                        return;
-                    }
-
-                    // Success
-                    showMessage('You\'re in! We\'ll be in touch when we launch.', 'success');
-                    form.reset();
-
-                } catch (error) {
-                    console.error('Error:', error);
-                    showMessage('Something went wrong. Please try again.', 'error');
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Join waitlist';
-                }
-            });
-        });
-    </script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.min.js"
+      defer
+    ></script>
+    <script src="js/site-config.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/waitlist.js" defer></script>
+  </body>
 </html>
