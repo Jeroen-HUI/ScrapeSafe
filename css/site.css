@@ -28,6 +28,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -46,6 +48,8 @@ html {
 
 body {
   margin: 0;
+  overflow-x: hidden;
+  width: 100%;
   font-family: var(--font);
   font-size: 1.0625rem;
   line-height: 1.6;
@@ -109,7 +113,8 @@ a:hover {
   width: 100%;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
 }
 
 .container--narrow {
@@ -122,6 +127,7 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -920,7 +926,7 @@ a:hover {
 /* Footer */
 
 .site-footer {
-  padding: 3rem 0 2rem;
+  padding: 3rem 0 calc(2rem + env(safe-area-inset-bottom, 0px));
 }
 
 .footer__links {

@@ -1,0 +1,16 @@
+{
+  "name": "ScrapeSafe",
+  "short_name": "ScrapeSafe",
+  "icons": [
+    {
+      "src": "/brand/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a"
+}
