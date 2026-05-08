@@ -33,6 +33,7 @@ html {
   max-width: 100%;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overscroll-behavior-x: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -71,6 +72,13 @@ body {
   background-blend-mode: normal, soft-light;
 }
 
+.page-shell {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -83,6 +91,8 @@ code {
   background: rgba(255, 255, 255, 0.06);
   padding: 0.12em 0.4em;
   border-radius: 4px;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 a {
@@ -448,6 +458,22 @@ main {
   position: relative;
   width: 100%;
   min-height: inherit;
+}
+
+@media (max-width: 899px) {
+  .hero__visual {
+    overflow-x: hidden;
+  }
+
+  .carousel,
+  .carousel__viewport {
+    overflow-x: hidden;
+  }
+
+  .carousel__track {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
 }
 
 .carousel__slide {
