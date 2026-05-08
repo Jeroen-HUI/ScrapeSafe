@@ -34,6 +34,8 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   overscroll-behavior-x: none;
+  /* Reduces sideways "pan" at the document level; carousel sets its own touch-action */
+  touch-action: pan-y pinch-zoom;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -55,6 +57,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   max-width: 100%;
+  overscroll-behavior-x: none;
   font-family: var(--font);
   font-size: 1.0625rem;
   line-height: 1.6;
@@ -77,6 +80,7 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   position: relative;
+  isolation: isolate;
 }
 
 img {
@@ -413,7 +417,9 @@ main {
   display: flex;
   justify-content: center;
   width: 100%;
-  overflow: visible;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
   padding: 0.5rem 0;
   /* Keeps grid row tall enough; carousel paints peek outside slide frame */
   min-width: 0;
@@ -423,10 +429,11 @@ main {
 
 .carousel {
   width: 100%;
-  max-width: 420px;
+  max-width: min(420px, 100%);
   margin: 0 auto clamp(1.5rem, 4vw, 2.75rem);
   position: relative;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .carousel:focus-visible {
@@ -440,14 +447,19 @@ main {
 .carousel__viewport {
   position: relative;
   width: 100%;
+  max-width: 100%;
   min-height: clamp(580px, 72vh, 760px);
   padding-bottom: clamp(4.5rem, 11vw, 6.5rem);
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: visible;
   border: none;
   background: transparent;
   box-shadow: none;
   touch-action: pan-y;
   cursor: grab;
+  /* WebKit: helps overflow-x clip transformed slides */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .carousel__viewport:active {
@@ -457,23 +469,12 @@ main {
 .carousel__track {
   position: relative;
   width: 100%;
+  max-width: 100%;
   min-height: inherit;
-}
-
-@media (max-width: 899px) {
-  .hero__visual {
-    overflow-x: hidden;
-  }
-
-  .carousel,
-  .carousel__viewport {
-    overflow-x: hidden;
-  }
-
-  .carousel__track {
-    overflow-x: hidden;
-    overflow-y: visible;
-  }
+  overflow-x: hidden;
+  overflow-y: visible;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .carousel__slide {
@@ -481,7 +482,8 @@ main {
   top: 0;
   left: 50%;
   width: 78%;
-  max-width: 300px;
+  max-width: min(300px, 92vw);
+  min-width: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -557,6 +559,7 @@ main {
 
 .carousel__slide img {
   width: 100%;
+  max-width: 100%;
   max-height: min(64vh, 640px);
   height: auto;
   object-fit: contain;
