@@ -9,7 +9,7 @@
     <title>ScrapeSafe | Low car &amp; slammed car navigator app</title>
     <meta
       name="description"
-      content="ScrapeSafe is a low car and slammed car navigator app: hazard maps, clearance-minded routing, garage, feed, groups &amp; meets. Android now; iOS coming. Crowdsourced bumps and inclines—incomplete by nature—plus community, not a replacement for judgment."
+      content="ScrapeSafe is a low car and slammed car navigator app: hazard maps, clearance-minded routing, garage, feed, groups &amp; meets. Google Play and App Store (iPhone). Crowdsourced bumps and inclines—incomplete by nature—plus community, not a replacement for judgment."
     />
     <link rel="canonical" href="https://scrapesafe.app/" />
     <meta property="og:type" content="website" />
@@ -20,7 +20,7 @@
     />
     <meta
       property="og:description"
-      content="Hazard-aware maps and routing for lowered and slammed builds—garage, feed, groups, meets, and DMs. Android today; iPhone coming. Still on you to drive safely."
+      content="Hazard-aware maps and routing for lowered and slammed builds—garage, feed, groups, meets, and DMs. Google Play and App Store on iPhone. Still on you to drive safely."
     />
     <meta
       property="og:image"
@@ -37,7 +37,7 @@
     />
     <meta
       name="twitter:description"
-      content="Low car navigator energy: hazard context, clearance-minded routing, garage, feed, groups &amp; meets. Android now; iOS soon."
+      content="Low car navigator energy: hazard context, clearance-minded routing, garage, feed, groups &amp; meets. On Google Play and the App Store for iPhone."
     />
     <meta name="twitter:image" content="https://scrapesafe.app/brand/logo.png" />
     <meta
@@ -90,7 +90,7 @@
             "@type": "MobileApplication",
             "name": "ScrapeSafe",
             "description": "Low car and slammed car navigator app with hazard maps, clearance-oriented routing cues, garage, feed, groups, meets, and messaging.",
-            "operatingSystem": "Android",
+            "operatingSystem": "Android, iOS",
             "applicationCategory": "Driving & navigation mobile app",
             "author": { "@id": "https://scrapesafe.app/#organization" },
             "offers": {
@@ -100,6 +100,7 @@
               "description": "Free tier with optional in-app subscriptions (pricing varies by store and region)."
             },
             "downloadUrl": "https://play.google.com/store/apps/details?id=com.scrapesafe.app",
+            "installUrl": "https://apps.apple.com/us/app/scrapesafe/id6761715116",
             "screenshot": [
               "https://scrapesafe.app/screens/slide-01.png",
               "https://scrapesafe.app/screens/slide-02.png",
@@ -288,11 +289,13 @@
               </li>
             </ul>
             <div class="store-row">
-              <span
-                class="btn-store btn-store--soon"
-                role="status"
-                title="iPhone App Store version is not live yet"
-                >App Store (coming soon)</span
+              <a
+                class="btn-store"
+                id="store-apple"
+                href="#download"
+                rel="noopener noreferrer"
+                target="_blank"
+                >App Store</a
               >
               <a
                 class="btn-store"
@@ -307,9 +310,9 @@
               Add your Google Play listing URL in
               <code>js/site-config.js</code> if this button is not live yet.
             </p>
-            <p class="store-hint store-hint--ios">
-              iPhone: App Store release is coming soon. Android is on Google
-              Play today.
+            <p class="store-hint store-hint--ios" data-app-store-hint>
+              Add your App Store listing URL in
+              <code>js/site-config.js</code> if this button is not live yet.
             </p>
           </div>
           <div class="hero__visual">
@@ -918,8 +921,8 @@
         <div class="container container--narrow">
           <h2 class="section__title" id="waitlist-h">Waitlist</h2>
           <p class="section__intro">
-            Want an email when iPhone launches or when we share something useful?
-            Drop your details. No spam, just occasional news.
+            Want product news or occasional updates?
+            Drop your details. No spam, just occasional mail.
           </p>
           <form id="waitlist-form" class="waitlist-form" novalidate>
             <div class="waitlist-form__row">
@@ -971,37 +974,46 @@
         <div class="container">
           <h2 class="section__title" id="dl-h">Download ScrapeSafe</h2>
           <p class="section__intro" style="margin-left: auto; margin-right: auto">
-            On Android you can install or wishlist on
+            Install on
+            <a
+              href="https://apps.apple.com/us/app/scrapesafe/id6761715116"
+              target="_blank"
+              rel="noopener noreferrer"
+              >App Store</a
+            >
+            (iPhone; designed for phone—see listing for details) or on Android via
             <a
               href="https://play.google.com/store/apps/details?id=com.scrapesafe.app"
               target="_blank"
               rel="noopener noreferrer"
               >Google Play</a
-            >. iPhone App Store: coming soon (phone app only; not built for
-            iPad).
+            >.
           </p>
           <div class="store-row">
-            <span
-              class="btn-store btn-store--soon"
-              role="status"
-              title="iPhone App Store version is not live yet"
-              >App Store (coming soon)</span
-            >
-            <a
-              class="btn-store"
-              id="store-google-bottom"
-              href="#download"
-              rel="noopener noreferrer"
-              target="_blank"
-              >Get it on Google Play</a
-            >
+              <a
+                class="btn-store"
+                id="store-apple-bottom"
+                href="#download"
+                rel="noopener noreferrer"
+                target="_blank"
+                >App Store</a
+              >
+              <a
+                class="btn-store"
+                id="store-google-bottom"
+                href="#download"
+                rel="noopener noreferrer"
+                target="_blank"
+                >Get it on Google Play</a
+              >
           </div>
           <p class="store-hint" data-store-hint>
             Set <code>playStoreUrl</code> in <code>js/site-config.js</code> if
             the Play button should point somewhere else.
           </p>
-          <p class="store-hint store-hint--ios">
-            When the iPhone app ships, this will be a normal App Store button.
+          <p class="store-hint store-hint--ios" data-app-store-hint>
+            Set <code>appStoreUrl</code> in <code>js/site-config.js</code> if
+            the App Store button should point somewhere else.
           </p>
           <p style="margin-top: 2rem; color: var(--text-dim); font-size: 0.9rem">
             Support:
