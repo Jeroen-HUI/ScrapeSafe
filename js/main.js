@@ -5,7 +5,12 @@
 
   function setGoogleStoreButton(el) {
     if (!el) return;
-    var url = cfg.playStoreUrl && String(cfg.playStoreUrl).trim();
+    var configured =
+      cfg.playStoreUrl && String(cfg.playStoreUrl).trim();
+    var initial = el.getAttribute("href") || "";
+    var url =
+      configured ||
+      (/^https?:\/\//i.test(initial) ? initial.trim() : "");
     if (url) {
       el.href = url;
       el.removeAttribute("aria-disabled");
@@ -21,7 +26,12 @@
 
   function setAppleStoreButton(el) {
     if (!el) return;
-    var url = cfg.appStoreUrl && String(cfg.appStoreUrl).trim();
+    var configured =
+      cfg.appStoreUrl && String(cfg.appStoreUrl).trim();
+    var initial = el.getAttribute("href") || "";
+    var url =
+      configured ||
+      (/^https?:\/\//i.test(initial) ? initial.trim() : "");
     if (url) {
       el.href = url;
       el.removeAttribute("aria-disabled");
@@ -65,16 +75,15 @@
     }
   });
 
-  var hasPlay =
-    cfg.playStoreUrl && String(cfg.playStoreUrl).trim();
-  document.querySelectorAll("[data-store-hint]").forEach(function (el) {
-    el.hidden = !!hasPlay;
-  });
+  function btnLooksLive(btn) {
+    return !!(btn && /^https?:\/\//i.test(btn.href || ""));
+  }
 
-  var hasAppStore =
-    cfg.appStoreUrl && String(cfg.appStoreUrl).trim();
+  document.querySelectorAll("[data-store-hint]").forEach(function (el) {
+    el.hidden = btnLooksLive(document.getElementById("store-google"));
+  });
   document.querySelectorAll("[data-app-store-hint]").forEach(function (el) {
-    el.hidden = !!hasAppStore;
+    el.hidden = btnLooksLive(document.getElementById("store-apple"));
   });
 
   function initCarousel(root) {
