@@ -75,17 +75,6 @@
     }
   });
 
-  function btnLooksLive(btn) {
-    return !!(btn && /^https?:\/\//i.test(btn.href || ""));
-  }
-
-  document.querySelectorAll("[data-store-hint]").forEach(function (el) {
-    el.hidden = btnLooksLive(document.getElementById("store-google"));
-  });
-  document.querySelectorAll("[data-app-store-hint]").forEach(function (el) {
-    el.hidden = btnLooksLive(document.getElementById("store-apple"));
-  });
-
   function initCarousel(root) {
     if (!root) return;
     var slides = root.querySelectorAll(".carousel__slide");

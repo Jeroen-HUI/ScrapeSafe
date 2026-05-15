@@ -11,7 +11,6 @@
 
     var form = document.getElementById("waitlist-form");
     var msgEl = document.getElementById("waitlist-message");
-    var hintEl = document.querySelector("[data-waitlist-config-hint]");
     var submitBtn = document.getElementById("waitlist-submit");
 
     if (!form || !msgEl) return;
@@ -42,12 +41,10 @@
     var ready = Boolean(url && key && createClient);
 
     if (!ready) {
-      if (hintEl) hintEl.hidden = false;
+      showMsg("Waitlist signup is unavailable right now. Try again later.", "info");
       if (submitBtn) submitBtn.disabled = true;
       return;
     }
-
-    if (hintEl) hintEl.hidden = true;
 
     var supabase = createClient(url, key);
 
